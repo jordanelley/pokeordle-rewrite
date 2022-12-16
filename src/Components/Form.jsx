@@ -47,12 +47,12 @@ function Form(props){
         <button onClick={onSelectMove}> go </button>
     </div>
 
-    const incorrectGuessCross = <span> X </span>
+    const incorrectGuessCross = <span> X incorrect guess </span>
 
     const damageClue = <div>This move was {damageState} against the target pokemon</div>
 
     async function handleChange(event) {
-       setPokeSelection(event.target.value)
+       setPokeSelection(event.target.value.toLowerCase())
     }
 
     async function handleMoveSelection(event){
