@@ -1,7 +1,7 @@
 import pokeLogo from './Images/pokeordle.png';
 import './App.css';
 import Form from "./Components/Form";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function App() {
 
@@ -10,6 +10,10 @@ function App() {
 
     const form = <Form solved= {setSolved} guessAgain={setAddNewForm} />
     const [ guessPrompt, setGuessPrompt ] = useState([form])
+
+    useEffect(() => {
+        document.title = 'pokeordle'
+    }, [])
 
     const congrats = <div> Congrats you have guessed the pokemon </div>
 
