@@ -118,7 +118,6 @@ function Form(props){
         const isSameType = guessedPokemonTypes.some(element => {
             return dailyPokemon.types.includes(element);
         });
-        console.log(guessedPokemonTypes, dailyPokemon.types, isSameType)
         setTypeCorrect(isSameType);
     }
 
