@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.1f8a9df3.css",
+    "main.js": "/static/js/main.c21ab453.js",
+    "static/js/787.deae9350.chunk.js": "/static/js/787.deae9350.chunk.js",
+    "static/media/pokeordle.png": "/static/media/pokeordle.06c206ef587727e76fc2.png",
+    "index.html": "/index.html",
+    "main.1f8a9df3.css.map": "/static/css/main.1f8a9df3.css.map",
+    "main.c21ab453.js.map": "/static/js/main.c21ab453.js.map",
+    "787.deae9350.chunk.js.map": "/static/js/787.deae9350.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1f8a9df3.css",
+    "static/js/main.c21ab453.js"
+  ]
+}
