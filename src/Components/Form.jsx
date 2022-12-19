@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {getMoves, getDamageInfoOnMove, getPokemonByIndex} from "../apiCalls";
+import {getMoves, getDamageInfoOnMove, getPokemonByIndex, getAllPokemon} from "../apiCalls";
 import { FormStateEnum } from "../formstate.enum"
 
+import '../App.css'
 
 function Form(props){
 
@@ -15,6 +16,7 @@ function Form(props){
     const [typeCorrect, setTypeCorrect] = useState(false)
 
     const [dailyPokemon, setDailyPokemon] = useState({})
+    const [allPokemon, setAllPokemon] = useState([])
 
 
     async function turnDateIntoUniquePokemon(){
@@ -24,20 +26,23 @@ function Form(props){
         return getPokemonByIndex(index);
     }
 
-
     useEffect(() => {
         const fetchData = async () => {
-            const data = await turnDateIntoUniquePokemon();
-            setDailyPokemon(data);
+            const dailyPokemon = await turnDateIntoUniquePokemon();
+            const allPokemon = await getAllPokemon();
+            setDailyPokemon(dailyPokemon);
+            setAllPokemon(allPokemon)
         }
         fetchData()
             .catch(console.error);
     }, [])
 
+    const incorrectGuessCross = <span className='user-inputs'> X incorrect guess </span>
 
-    const selectMove = <div>
+    const selectMove = <div className="user-inputs">
         <label>
             pick a move
+            {console.log(moveDropdownOption)}
             <select  onChange={handleMoveSelection} value={moveSelection}>
                 {moveDropdownOption.map((options) => (
                     <option value={options.value}>{options.label}</option>
@@ -47,7 +52,6 @@ function Form(props){
         <button onClick={onSelectMove}> go </button>
     </div>
 
-    const incorrectGuessCross = <span> X incorrect guess </span>
 
     const damageClue = <div>This move was {damageState} against the target pokemon</div>
 
@@ -121,14 +125,19 @@ function Form(props){
         setTypeCorrect(isSameType);
     }
 
-    const selectPokemon =<label>
-        Pokemon:
-        <input type="text" name="name" onChange={handleChange}/>
+    const selectPokemon2 = (allPokemon) =>
+        <label>
+        guess a pokemon
+        <select  onChange={handleChange} >
+            {allPokemon.map((options) => (
+                <option value={options}>{options}</option>
+            ))}
+        </select>
         <button onClick={onMakeGuess}> make guess </button>
     </label>
 
-    return  <div >
-        {selectPokemon}
+    return  <div className='guess-component'>
+        {allPokemon.length!==0 && selectPokemon2(allPokemon)}
         {pokeSelection && formState===FormStateEnum.incorrectGuess && incorrectGuessCross}
         {pokeSelection && formState===FormStateEnum.incorrectGuess && selectMove}
         {typeCorrect && correctTypeClue}

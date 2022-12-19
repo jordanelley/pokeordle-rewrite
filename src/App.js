@@ -1,12 +1,13 @@
 import pokeLogo from './Images/pokeordle.png';
+import pikachu from './Images/pikachu.png'
 import './App.css';
 import Form from "./Components/Form";
 import {useEffect, useState} from "react";
 
 function App() {
 
-    const [solved, setSolved] = useState(false)
-    const [addNewForm, setAddNewForm] = useState(false)
+    const [solved, setSolved] = useState(false);
+    const [addNewForm, setAddNewForm] = useState(false);
 
     const form = <Form solved= {setSolved} guessAgain={setAddNewForm} />
     const [ guessPrompt, setGuessPrompt ] = useState([form])
@@ -26,10 +27,13 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={pokeLogo} className="App-logo" alt="logo" />
+        <img src={pokeLogo} id="title-image" />
+        <img src={pikachu} id="pikachu-image"  />
       </header>
-        {guessPrompt}
-        {solved && congrats}
+        <div className="body">
+            {guessPrompt}
+            {solved && congrats}
+        </div>
     </div>
   );
 }

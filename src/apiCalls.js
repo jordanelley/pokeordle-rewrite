@@ -15,9 +15,17 @@ export async function getPokemonByIndex(index) {
     }
 }
 
-export  async function getDamageInfoOnMove(move){
+export async function getDamageInfoOnMove(move){
     const axiosResponseMove = await axios("https://pokeapi.co/api/v2/move/" + move);
     const typeURL = axiosResponseMove.data.type.url;
     const axiosResponseType = await axios(typeURL);
     return axiosResponseType.data.damage_relations;
 }
+
+export async function getAllPokemon(){
+    const axiosResponse = await axios("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+    const pokeList = axiosResponse.data.results.map(a => a.name)
+    return pokeList;
+
+}
+

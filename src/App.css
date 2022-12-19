@@ -1,28 +1,38 @@
 * {
-    background-color: #282c34;
-    color: aqua;
+    --primary-color: #ffcd02;
+    --secondary-color: #ddf4ff;
+    --third-color: #000064;
+}
+
+
+* {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    text-align: center;
+    flex-direction: column;
+    max-height: 20vh;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 50vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    display: flex;
+    width: 30vh;
 }
 
-.App-link {
-  color: #61dafb;
+img {
+    padding: 4vh;
+    max-width: 100%;
+    align-self: center;
 }
+
+#pikachu-image{
+    width: 12vh;
+}
+
+#title-image{
+    flex: 67%;
+}
+
+
