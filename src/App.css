@@ -21,7 +21,7 @@
     width: 30vh;
 }
 
-img {
+.title-image {
     padding: 4vh;
     max-width: 100%;
     align-self: center;
@@ -33,6 +33,11 @@ img {
 
 #title-image{
     flex: 67%;
+}
+
+#cross{
+    width: 3vh;
+    padding-left: 1vh;
 }
 
 

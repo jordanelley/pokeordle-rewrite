@@ -27,8 +27,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={pokeLogo} id="title-image" />
-        <img src={pikachu} id="pikachu-image"  />
+        <img src={pokeLogo} id="title-image" className="title-image"/>
+        <img src={pikachu} id="pikachu-image"  className="title-image"/>
       </header>
         <div className="body">
             {guessPrompt}

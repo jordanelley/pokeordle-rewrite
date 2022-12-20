@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {getMoves, getDamageInfoOnMove, getPokemonByIndex, getAllPokemon} from "../apiCalls";
 import { FormStateEnum } from "../formstate.enum"
+import cross from "../Images/cross.png"
 
 import '../App.css'
 
@@ -31,18 +32,17 @@ function Form(props){
             const dailyPokemon = await turnDateIntoUniquePokemon();
             const allPokemon = await getAllPokemon();
             setDailyPokemon(dailyPokemon);
-            setAllPokemon(allPokemon)
+            setAllPokemon(['please select'].concat(allPokemon))
         }
         fetchData()
             .catch(console.error);
     }, [])
 
-    const incorrectGuessCross = <span className='user-inputs'> X incorrect guess </span>
+    const incorrectGuessCross = <img src={cross} id="cross"/>
 
     const selectMove = <div className="user-inputs">
         <label>
             pick a move
-            {console.log(moveDropdownOption)}
             <select  onChange={handleMoveSelection} value={moveSelection}>
                 {moveDropdownOption.map((options) => (
                     <option value={options.value}>{options.label}</option>
@@ -64,7 +64,7 @@ function Form(props){
 
     }
     
-    const correctTypeClue = <div> The Pokemon you choose has the correct type </div>
+    const correctTypeClue = () => <div> The Pokemon you choose has the correct type. {dailyPokemon? dailyPokemon.types.length > 1? "Although the pokemon has more than 1 type": "" : ""} </div>
 
     function findDamageOnDailyPokemon(damageRelations) {
         const keysToReturn = []
@@ -113,7 +113,12 @@ function Form(props){
         }
         else {
             setFormState(FormStateEnum.incorrectGuess)
-            await isTypeCorrect();
+            const isCorrect = await isTypeCorrect();
+            setTypeCorrect(isCorrect);
+
+            if(isCorrect) {
+                 props.guessAgain(true)
+             }
         }
     }
     
@@ -122,8 +127,10 @@ function Form(props){
         const isSameType = guessedPokemonTypes.some(element => {
             return dailyPokemon.types.includes(element);
         });
-        setTypeCorrect(isSameType);
+        return isSameType;
     }
+
+    const letterClue = <div> Pokemon begins with {dailyPokemon.name? dailyPokemon.name[0] :""}</div>
 
     const selectPokemon2 = (allPokemon) =>
         <label>
@@ -137,10 +144,12 @@ function Form(props){
     </label>
 
     return  <div className='guess-component'>
-        {allPokemon.length!==0 && selectPokemon2(allPokemon)}
+        {formState===FormStateEnum.noGuesses? selectPokemon2(allPokemon) : pokeSelection}
         {pokeSelection && formState===FormStateEnum.incorrectGuess && incorrectGuessCross}
-        {pokeSelection && formState===FormStateEnum.incorrectGuess && selectMove}
-        {typeCorrect && correctTypeClue}
+        {!typeCorrect? pokeSelection && formState===FormStateEnum.incorrectGuess && !damageState? selectMove: moveSelection : ""}
+
+        {typeCorrect && correctTypeClue()}
+        {typeCorrect && letterClue}
         {damageState && moveSelection && damageClue}
     </div>
 
