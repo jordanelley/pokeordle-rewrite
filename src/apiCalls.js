@@ -23,7 +23,7 @@ export async function getDamageInfoOnMove(move){
 }
 
 export async function getAllPokemon(){
-    const axiosResponse = await axios("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+    const axiosResponse = await axios("https://pokeapi.co/api/v2/pokemon?limit=151&offset=0")
     const pokeList = axiosResponse.data.results.map(a => a.name)
     return pokeList;
 

@@ -21,9 +21,12 @@ function Form(props){
 
 
     async function turnDateIntoUniquePokemon(){
-        const date = new Date().toLocaleDateString(); 
+        const options = {day: 'numeric', month: 'numeric'};
+        const date = new Date().toLocaleDateString(undefined, options);
         const number = parseInt(date.replaceAll("/",""));
-        const index = Math.floor(number/62245);
+        const index = Math.floor(number/20.65);
+        console.log(date)
+        console.log(number)
         return getPokemonByIndex(index);
     }
 
@@ -32,6 +35,7 @@ function Form(props){
             const dailyPokemon = await turnDateIntoUniquePokemon();
             const allPokemon = await getAllPokemon();
             setDailyPokemon(dailyPokemon);
+            console.log(dailyPokemon)
             setAllPokemon(['please select'].concat(allPokemon))
         }
         fetchData()
