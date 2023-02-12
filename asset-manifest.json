@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/pokeordle-rewrite/static/css/main.d67d25c1.css",
-    "main.js": "/pokeordle-rewrite/static/js/main.bc72ffed.js",
+    "main.js": "/pokeordle-rewrite/static/js/main.658adeb2.js",
     "static/js/787.deae9350.chunk.js": "/pokeordle-rewrite/static/js/787.deae9350.chunk.js",
     "static/media/pikachu.png": "/pokeordle-rewrite/static/media/pikachu.8e5c4616d069a4de5e85.png",
     "index.html": "/pokeordle-rewrite/index.html",
     "main.d67d25c1.css.map": "/pokeordle-rewrite/static/css/main.d67d25c1.css.map",
-    "main.bc72ffed.js.map": "/pokeordle-rewrite/static/js/main.bc72ffed.js.map",
+    "main.658adeb2.js.map": "/pokeordle-rewrite/static/js/main.658adeb2.js.map",
     "787.deae9350.chunk.js.map": "/pokeordle-rewrite/static/js/787.deae9350.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d67d25c1.css",
-    "static/js/main.bc72ffed.js"
+    "static/js/main.658adeb2.js"
   ]
 }
