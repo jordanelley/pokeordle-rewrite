@@ -1,16 +1,19 @@
 {
   "files": {
-    "main.css": "/pokeordle-rewrite/static/css/main.d67d25c1.css",
-    "main.js": "/pokeordle-rewrite/static/js/main.658adeb2.js",
+    "main.css": "/pokeordle-rewrite/static/css/main.80751168.css",
+    "main.js": "/pokeordle-rewrite/static/js/main.4d06ef28.js",
     "static/js/787.deae9350.chunk.js": "/pokeordle-rewrite/static/js/787.deae9350.chunk.js",
+    "static/media/super-effective.png": "/pokeordle-rewrite/static/media/super-effective.59e387d3c9c448b62a69.png",
+    "static/media/not-effective.png": "/pokeordle-rewrite/static/media/not-effective.889c2857a899b3bc6844.png",
+    "static/media/regular-effective.png": "/pokeordle-rewrite/static/media/regular-effective.1a5742126f44d80550f6.png",
     "static/media/pikachu.png": "/pokeordle-rewrite/static/media/pikachu.8e5c4616d069a4de5e85.png",
     "index.html": "/pokeordle-rewrite/index.html",
-    "main.d67d25c1.css.map": "/pokeordle-rewrite/static/css/main.d67d25c1.css.map",
-    "main.658adeb2.js.map": "/pokeordle-rewrite/static/js/main.658adeb2.js.map",
+    "main.80751168.css.map": "/pokeordle-rewrite/static/css/main.80751168.css.map",
+    "main.4d06ef28.js.map": "/pokeordle-rewrite/static/js/main.4d06ef28.js.map",
     "787.deae9350.chunk.js.map": "/pokeordle-rewrite/static/js/787.deae9350.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d67d25c1.css",
-    "static/js/main.658adeb2.js"
+    "static/css/main.80751168.css",
+    "static/js/main.4d06ef28.js"
   ]
 }
