@@ -41,3 +41,12 @@
 }
 
 
+#congrats{
+    color: limegreen;
+    font-weight: bold;
+    padding: 1em;
+    background: lightgreen;
+}
+.guess-component{
+    padding: 1em;
+}

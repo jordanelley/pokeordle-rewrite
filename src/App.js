@@ -16,7 +16,7 @@ function App() {
         document.title = 'pokeordle'
     }, [])
 
-    const congrats = <div> Congrats you have guessed the pokemon </div>
+    const congrats = <div id="congrats"> Congrats you have guessed the pokemon </div>
 
     if(addNewForm){
 
