@@ -1,7 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {getMoves, getDamageInfoOnMove, getPokemonByIndex, getAllPokemon} from "../apiCalls";
 import { FormStateEnum } from "../formstate.enum"
+import { DamageStateEnum } from "../damageState.enum";
 import cross from "../Images/cross.png"
+import superEffective from "../Images/smileys/super-effective.png"
+import regularEffective from "../Images/smileys/regular-effective.png"
+import notEffective from "../Images/smileys/not-effective.png"
 
 import '../App.css'
 
@@ -13,13 +17,20 @@ function Form(props){
     const [moveDropdownOption, setMoveDropdownOption] = useState([])
 
     const [formState, setFormState] = useState(FormStateEnum.noGuesses)
-    const [damageState, setDamageState] = useState("")
+    const [damageState, setDamageState] = useState(DamageStateEnum.none) //here
     const [typeCorrect, setTypeCorrect] = useState(false)
 
     const [dailyPokemon, setDailyPokemon] = useState({})
     const [allPokemon, setAllPokemon] = useState([])
 
+    const damageStateMap = {
+        [DamageStateEnum.none] : "",
+        [DamageStateEnum.regular_damage]: "regular effectiveness",
+        [DamageStateEnum.half_damage]: "not very effective",
+        [DamageStateEnum.double_damage]: "super effective",
+        [DamageStateEnum.no_damage]: "not damaging at all to"
 
+    }
     async function turnDateIntoUniquePokemon(){
         const options = {day: 'numeric', month: 'numeric'};
         const date = new Date().toLocaleDateString(undefined, options);
@@ -43,6 +54,9 @@ function Form(props){
     }, [])
 
     const incorrectGuessCross = <img src={cross} id="cross"/>
+    const superEffectiveSmiley = <img src={superEffective} id ="cross" />
+    const notEffectiveSmiley = <img src={notEffective} id ="cross" />
+    const regularEffectiveSmiley = <img src={regularEffective} id ="cross" />
 
     const selectMove = <div className="user-inputs">
         <label>
@@ -56,8 +70,28 @@ function Form(props){
         <button onClick={onSelectMove}> go </button>
     </div>
 
+    const damageStyle = (damageState) => {
+        switch(damageState){
+            case DamageStateEnum.double_damage:
+                return {color: "#b0bf1a"}
+            case DamageStateEnum.half_damage:
+                return {color: "#f44336"}
+            case DamageStateEnum.no_damage:
+                return {color: "#f44336"}
+            default:
+                return {}
+        }
+    };
 
-    const damageClue = <div>This move was {damageState} against the target pokemon</div>
+    const SmileyMap = {
+        [DamageStateEnum.none] : "",
+        [DamageStateEnum.regular_damage]: regularEffectiveSmiley,
+        [DamageStateEnum.half_damage]: notEffectiveSmiley,
+        [DamageStateEnum.double_damage]: superEffectiveSmiley,
+        [DamageStateEnum.no_damage]: notEffectiveSmiley
+    }
+
+    const damageClue = <div>This move was <span style={damageStyle(damageState)}> {damageStateMap[damageState]} </span>against the target pokemon {SmileyMap[damageState]}</div>
 
     async function handleChange(event) {
        setPokeSelection(event.target.value.toLowerCase())
@@ -67,7 +101,6 @@ function Form(props){
         setMoveSelection(event.target.value);
 
     }
-    
     const correctTypeClue = () => <div> The Pokemon you choose has the correct type. {dailyPokemon? dailyPokemon.types.length > 1? "Although the pokemon has more than 1 type": "" : ""} </div>
 
     function findDamageOnDailyPokemon(damageRelations) {
@@ -91,19 +124,21 @@ function Form(props){
         const damageRelations = findDamageOnDailyPokemon(response);
         props.guessAgain(true);
         if(damageRelations.length === 0){
-            setDamageState("regular effectiveness");
+            setDamageState(DamageStateEnum.regular_damage);
             return
         }
         if(damageRelations.includes("double_damage_to")){
-            setDamageState("super effective");
+            console.log('yup went here')
+            setDamageState(DamageStateEnum.double_damage);
+            console.log('r', DamageStateEnum.double_damage)
             return
         }
         if(damageRelations.includes("no_damage_to")){
-            setDamageState("not damaging at all to");
+            setDamageState(DamageStateEnum.no_damage);
             return
         }
         if(damageRelations.includes("half_damage_to")){
-            setDamageState("not very effective");
+            setDamageState(DamageStateEnum.half_damage);
         }
     }
 
@@ -136,7 +171,7 @@ function Form(props){
 
     const letterClue = <div> Pokemon begins with {dailyPokemon.name? dailyPokemon.name[0] :""}</div>
 
-    const selectPokemon2 = (allPokemon) =>
+    const selectPokemon = (allPokemon) =>
         <label>
         guess a pokemon
         <select  onChange={handleChange} >
@@ -148,13 +183,13 @@ function Form(props){
     </label>
 
     return  <div className='guess-component'>
-        {formState===FormStateEnum.noGuesses? selectPokemon2(allPokemon) : pokeSelection}
+        {formState===FormStateEnum.noGuesses? selectPokemon(allPokemon) : pokeSelection}
         {pokeSelection && formState===FormStateEnum.incorrectGuess && incorrectGuessCross}
-        {!typeCorrect? pokeSelection && formState===FormStateEnum.incorrectGuess && !damageState? selectMove: moveSelection : ""}
+        {!typeCorrect? pokeSelection && formState===FormStateEnum.incorrectGuess && damageState===DamageStateEnum.none? selectMove: moveSelection : ""}
 
         {typeCorrect && correctTypeClue()}
         {typeCorrect && letterClue}
-        {damageState && moveSelection && damageClue}
+        {damageState!==DamageStateEnum.none && moveSelection && damageClue}
     </div>
 
 }
